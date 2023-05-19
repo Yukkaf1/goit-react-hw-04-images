@@ -1,16 +1,8 @@
 import styled from 'styled-components';
 
-export const Section = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const Button = styled.button`
+export const ButtonLoadMore = styled.button`
   margin-top: 18px;
   padding: 8px 14px;
-
   font-size: 16px;
   color: white;
   background: darkblue;
@@ -18,4 +10,10 @@ export const Button = styled.button`
   border-radius: 10px;
   border: none;
   text-align: center;
+  width: 200px;
+  display: inline-block;
+  :hover,
+  :focus {
+    background-color: #303f9f;
+  }
 `;
