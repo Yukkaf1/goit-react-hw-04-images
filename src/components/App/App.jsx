@@ -13,6 +13,7 @@ export function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
+  const [totalImages, setTotalImages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currImg, setCurrImg] = useState(null);
@@ -29,27 +30,18 @@ export function App() {
 
         const images = await API.getImages(query, page);
 
-        if (images.totalHits > API.perPage) {
-          setShowLoadMore(true);
-        }
-
-        if (page + 1 > Math.ceil(images.totalHits / API.perPage)) {
-          setIsLoading(false);
-          setShowLoadMore(false);
-        }
-
         if (images.total === 0) {
           toast.warn('Your search did not return any results.', {
             theme: 'dark',
           });
-          setIsLoading(false);
           return;
         }
 
         setImages(state => [...state, ...images.hits]);
-        setIsLoading(false);
+        setTotalImages(images.totalHits);
       } catch (error) {
         toast.error(`Oops something went wrong, try again.`);
+      } finally {
         setIsLoading(false);
       }
     }
@@ -60,6 +52,7 @@ export function App() {
     setPage(1);
     setQuery(keyword);
     setImages([]);
+    setTotalImages(0);
 
     if (query === keyword && page === 1) {
       try {
@@ -86,6 +79,8 @@ export function App() {
     toggleModal();
     setCurrImg({ largeImageURL, tags });
   };
+
+  // setShowLoadMore(!isLoading && images.length !== totalImages);
 
   return (
     <Box>
