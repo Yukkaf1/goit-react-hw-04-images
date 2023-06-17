@@ -17,7 +17,6 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currImg, setCurrImg] = useState(null);
-  const [showLoadMore, setShowLoadMore] = useState(false);
 
   useEffect(() => {
     if (query === '') {
@@ -80,7 +79,7 @@ export function App() {
     setCurrImg({ largeImageURL, tags });
   };
 
-  // setShowLoadMore(!isLoading && images.length !== totalImages);
+  const showLoadMore = !isLoading && images.length !== totalImages;
 
   return (
     <Box>
